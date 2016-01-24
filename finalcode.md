@@ -46,17 +46,20 @@ There are still many features in the model, so it is of interest whether some of
 
 ```
 ##             Variable1        Variable2 Correlation
-## 4    total_accel_belt        roll_belt   0.9808517
-## 9        accel_belt_y        roll_belt   0.9244695
-## 10       accel_belt_z        roll_belt  -0.9919035
-## 60       accel_belt_x       pitch_belt  -0.9663848
-## 63      magnet_belt_x       pitch_belt  -0.8867735
-## 165      accel_belt_y total_accel_belt   0.9273458
-## 166      accel_belt_z total_accel_belt  -0.9746082
-## 375     magnet_belt_x     accel_belt_x   0.8913699
-## 426      accel_belt_z     accel_belt_y  -0.9330224
-## 903       gyros_arm_y      gyros_arm_x  -0.9181920
-## 1492 accel_dumbbell_z     yaw_dumbbell   0.8500830
+## 4    total_accel_belt        roll_belt   0.9810389
+## 9        accel_belt_y        roll_belt   0.9246699
+## 10       accel_belt_z        roll_belt  -0.9919234
+## 60       accel_belt_x       pitch_belt  -0.9655142
+## 63      magnet_belt_x       pitch_belt  -0.8873987
+## 165      accel_belt_y total_accel_belt   0.9283603
+## 166      accel_belt_z total_accel_belt  -0.9749737
+## 375     magnet_belt_x     accel_belt_x   0.8939170
+## 426      accel_belt_z     accel_belt_y  -0.9330038
+## 903       gyros_arm_y      gyros_arm_x  -0.9192901
+## 1593 gyros_dumbbell_z gyros_dumbbell_x  -0.9840917
+## 1606  gyros_forearm_z gyros_dumbbell_x  -0.9343993
+## 1710  gyros_forearm_z gyros_dumbbell_z   0.9482127
+## 2334  gyros_forearm_z  gyros_forearm_y   0.8691207
 ```
 It appears that measurements taken on the belt are highly correlated. Additionally measurements taken with a gyroscope tend to be correlated. Because of this pattern, PCA was run on two subsets of variables - those that contain "belt" measurements and those that contain "gyroscope" measurements. Since the PC's created for these two variables can be associated with those respective groups, we do not lose all interpretability. Running PCA at a 90% variance threshold separately on these subgroups, we look at plots of the two PC's for these groups to see how much separation they give:
 
@@ -86,7 +89,7 @@ Printed below are the names of the trainPC dataframe. The number of columns has 
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
 
-Remember this is only assessed on a sample of 3000 observations in the training set. We will train the bagged CART on the entire training set, with 10 fold cross validation. Our selection is based on the plot which shows us that the bagged CART has very high accuracy and also doesn't take too long (none of the models took an extremely long time to complete) for the training sample. One has to apply the prediction function to an independent test set in order to get true out of sample error value, so we will use our test set to do so.
+Remember this is only assessed on a sample of 3000 observations in the training set. We will train the bagged CART on the entire training set with no PC's, with 10 fold cross validation. Our selection is based on the plot which shows us that the bagged CART has very high accuracy and also doesn't take too long (none of the models took an extremely long time to complete) for the training sample. One has to apply the prediction function to an independent test set in order to get true out of sample error value, so we will use our test set to do so.
 
 The code for the final model is displayed below.
 
@@ -105,7 +108,7 @@ predMod<-predict(modFit, test)
 cm<-confusionMatrix(predMod, test$classe)
 ```
 
-The out of sample accuracy appears to be 0.983 as compared to  0.982, the 10 fold crossvalidated accuracy on whole training set. 
+The out of sample accuracy appears to be 0.989 as compared to  0.987, the 10 fold crossvalidated accuracy on whole training set. 
 
 
 

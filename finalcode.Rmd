@@ -110,7 +110,7 @@ g + xlab("Time (minutes)") + ylab("Accuracy (10 Fold CV)")
 
 ```
 
-Remember this is only assessed on a sample of 3000 observations in the training set. We will train the bagged CART on the entire training set, with 10 fold cross validation. Our selection is based on the plot which shows us that the bagged CART has very high accuracy and also doesn't take too long (none of the models took an extremely long time to complete) for the training sample. One has to apply the prediction function to an independent test set in order to get true out of sample error value, so we will use our test set to do so.
+Remember this is only assessed on a sample of 3000 observations in the training set. We will train the bagged CART on the entire training set with no PC's, with 10 fold cross validation. Our selection is based on the plot which shows us that the bagged CART has very high accuracy and also doesn't take too long (none of the models took an extremely long time to complete) for the training sample. One has to apply the prediction function to an independent test set in order to get true out of sample error value, so we will use our test set to do so.
 
 The code for the final model is displayed below.
 
